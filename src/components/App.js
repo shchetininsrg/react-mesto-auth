@@ -1,7 +1,10 @@
 import React from "react";
+import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import Header from "./Header.js";
 import Main from "./Main.js";
 import Footer from "./Footer.js";
+import Login from "./Login.js";
+import Register from "./Register.js";
 import ImagePopup from "./ImagePopup.js";
 import EditProfilePopup from "./EditProfilePopup.js";
 import EditAvatarPopup from "./EditAvatarPopup.js";
