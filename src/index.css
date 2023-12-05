@@ -48,4 +48,6 @@
 @import url(../src/blocks/auth/__button/auth__button.css);
 @import url(../src/blocks/auth/__input/auth__input.css);
 @import url(../src/blocks/auth/__title/auth__title.css);
+@import url(../src/blocks/auth/__text/auth__text.css);
+@import url(../src/blocks/auth/__link/auth__link.css);
 

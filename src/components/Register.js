@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Register() {
   return (
     <div className="auth">
@@ -18,7 +20,12 @@ export default function Register() {
         <button className="auth__button" type="submit">
           Зарегистрироваться
         </button>
-        <p>Уже зарегистрировались? Войти</p>
+        <p className="auth__text">
+          Уже зарегистрировались?{" "}
+          <Link className="auth__link" to="/sign-in">
+            Войти
+          </Link>
+        </p>
       </form>
     </div>
   );
