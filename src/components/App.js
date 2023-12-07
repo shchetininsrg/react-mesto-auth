@@ -26,6 +26,8 @@ function App() {
   const [email, setEmail] = React.useState("");
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
+  const navigate = useNavigate();
+
   React.useEffect(() => {
     Promise.all([api.getUserInfo(), api.getDefaultCard()])
       .then(([dataUser, dataCards]) => {
@@ -34,6 +36,10 @@ function App() {
       })
       .catch((error) => console.log(error));
   }, []);
+
+  React.useEffect(() => {
+    handleCheckToken();
+  });
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
@@ -79,6 +85,27 @@ function App() {
       .catch((error) => console.log(error));
   }
 
+  function handleLogin() {
+    setIsLoggedIn(true);
+  }
+
+  function handleCheckToken() {
+    if (localStorage.getItem("token")) {
+      const jwt = localStorage.getItem("token");
+      auth
+        .checkToken(jwt)
+        .then((res) => {
+          if (res) {
+            setIsLoggedIn(true);
+            navigate("/", { replace: true });
+          } else {
+            setIsLoggedIn(false);
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+  }
+
   function closeAllPopup() {
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
@@ -110,12 +137,6 @@ function App() {
       .catch((err) => console.error(err));
   }
 
-  function handleRegister({ email, password }) {
-    auth.register(email, password).then((res) => {
-      return res;
-    });
-  }
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -137,8 +158,18 @@ function App() {
               />
             }
           />
-          <Route path="/sign-in" element={<Login />} />
+          <Route path="/sign-in" element={<Login onLogin={handleLogin} />} />
           <Route path="/sign-up" element={<Register />} />
+          <Route
+            path="*"
+            element={
+              isLoggedIn ? (
+                <Navigate to="/" replace />
+              ) : (
+                <Navigate to="sign-in" replace />
+              )
+            }
+          />
         </Routes>
 
         <Footer />

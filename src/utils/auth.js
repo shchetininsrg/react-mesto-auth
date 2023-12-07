@@ -1,4 +1,4 @@
-const url = "https://auth.nomoreparties.co/";
+const url = "https://auth.nomoreparties.co";
 const headers = {
   "Content-Type": "application/json",
 };
@@ -20,10 +20,8 @@ export const login = (email, password) => {
       return checkStateServ(res);
     })
     .then((dataUser) => {
-      if (dataUser.jwt) {
-        localStorage.setItem("jwt", dataUser.token);
-        return dataUser;
-      }
+      localStorage.setItem("token", dataUser.token);
+      return dataUser;
     });
 };
 

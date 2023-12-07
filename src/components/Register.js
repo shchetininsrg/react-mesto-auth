@@ -17,7 +17,7 @@ export default function Register() {
   function handleRegister(evt) {
     evt.preventDefault();
     auth.register(email, password).then(() => {
-      navigate("/signin");
+      navigate("/sign-in");
     });
   }
   return (
