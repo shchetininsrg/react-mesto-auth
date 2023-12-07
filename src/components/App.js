@@ -12,6 +12,7 @@ import AddPlacePopup from "./AddPlacePopup.js";
 import { api } from "../utils/Api.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import ProtectedRouteElement from "./ProtectedRoute.js";
+import * as auth from "../utils/auth.js";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
@@ -22,6 +23,7 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState(null);
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
+  const [email, setEmail] = React.useState("");
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
   React.useEffect(() => {
@@ -106,6 +108,12 @@ function App() {
         );
       })
       .catch((err) => console.error(err));
+  }
+
+  function handleRegister({ email, password }) {
+    auth.register(email, password).then((res) => {
+      return res;
+    });
   }
 
   return (
