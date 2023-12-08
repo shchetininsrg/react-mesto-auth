@@ -1,12 +1,9 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import React from "react";
-import * as auth from "../utils/auth.js";
 
-export default function Register() {
+export default function Register({ onRegister }) {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-
-  const navigate = useNavigate();
 
   function handleChangeEmail(evt) {
     setEmail(evt.target.value);
@@ -14,16 +11,16 @@ export default function Register() {
   function handleChangePassword(evt) {
     setPassword(evt.target.value);
   }
-  function handleRegister(evt) {
+
+  function handleSubmit(evt) {
     evt.preventDefault();
-    auth.register(email, password).then(() => {
-      navigate("/sign-in");
-    });
+    onRegister(email, password);
   }
+
   return (
     <div className="auth">
       <h2 className="auth__title">Регистрация</h2>
-      <form onSubmit={handleRegister}>
+      <form onSubmit={handleSubmit}>
         <input
           className="auth__input"
           type="email"

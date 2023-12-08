@@ -15,14 +15,9 @@ export const login = (email, password) => {
     method: "POST",
     headers: headers,
     body: JSON.stringify({ email, password }),
-  })
-    .then((res) => {
-      return checkStateServ(res);
-    })
-    .then((dataUser) => {
-      localStorage.setItem("token", dataUser.token);
-      return dataUser;
-    });
+  }).then((res) => {
+    return checkStateServ(res);
+  });
 };
 
 export const register = (email, password) => {
